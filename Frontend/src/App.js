@@ -22,12 +22,16 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ 
+      backgroundImage: 'url(/background.jpg)', 
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover' // Adjust size as needed
+    }}>
       <h1 align='center'>Notification System</h1>
       <NotificationForm fetchNotifications={fetchNotifications} />
       <NotificationList
         notifications={notifications}
-        fetchNotifications={fetchNotifications} // Ensure this is passed
+        fetchNotifications={fetchNotifications}
       />
     </div>
   );
