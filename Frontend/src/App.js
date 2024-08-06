@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import axios from 'axios';
-import NotificationForm from './NotificationForm';
-import NotificationList from './NotificationList';
+import NotificationForm from './Notification/NotificationForm';
+import NotificationList from './Notification/NotificationList';
 
 const App = memo(function App() {
   const [notifications, setNotifications] = useState([]);
