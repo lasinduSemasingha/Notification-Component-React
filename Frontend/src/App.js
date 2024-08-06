@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import axios from 'axios';
 import NotificationForm from './NotificationForm';
 import NotificationList from './NotificationList';
 
-const App = () => {
+const App = memo(function App() {
   const [notifications, setNotifications] = useState([]);
 
   // Function to fetch notifications
@@ -35,6 +35,6 @@ const App = () => {
       />
     </div>
   );
-};
+})
 
 export default App;

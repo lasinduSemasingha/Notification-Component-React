@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Snackbar, Alert, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ const StyledSnackbar = styled(Snackbar)(({ theme }) => ({
   zIndex: theme.zIndex.snackbar,
 }));
 
-const HomePage = () => {
+const HomePage = memo(function HomePage() {
   const [notifications, setNotifications] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentNotification, setCurrentNotification] = useState(null);
@@ -93,6 +93,6 @@ const HomePage = () => {
       </StyledSnackbar>
     </div>
   );
-};
+})
 
 export default HomePage;

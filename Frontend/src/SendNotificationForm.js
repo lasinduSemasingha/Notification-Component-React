@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import axios from 'axios';
 import { Button, TextField, Snackbar, Alert, Typography, Container } from '@mui/material';
 
-const SendNotificationForm = () => {
+const SendNotificationForm = memo(function SendNotificationForm() {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [open, setOpen] = useState(false);
@@ -67,6 +67,6 @@ const SendNotificationForm = () => {
       </Snackbar>
     </Container>
   );
-};
+})
 
 export default SendNotificationForm;
