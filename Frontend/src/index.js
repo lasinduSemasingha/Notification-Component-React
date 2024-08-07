@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import App from './App';
 import HomePage from './HomePage';
-import NotificationList from './NotificationList';
 
 ReactDOM.render(
   <Router>

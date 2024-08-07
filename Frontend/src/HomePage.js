@@ -58,7 +58,10 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div style={{ 
+      backgroundImage: 'url(/background.jpg)', 
+      backgroundRepeat: 'no-repeat'
+    }}>
       <h1>Home Page</h1>
       <Button variant="contained" color="primary" onClick={goToNotificationList}>
         Go to Notification List

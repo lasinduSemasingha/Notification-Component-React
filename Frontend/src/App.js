@@ -22,10 +22,9 @@ const App = () => {
   }, []);
 
   return (
-    <div style={{ 
+    <div style={{ margin: '0',
       backgroundImage: 'url(/background.jpg)', 
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover' // Adjust size as needed
+      backgroundRepeat: 'no-repeat'
     }}>
       <h1 align='center'>Notification System</h1>
       <NotificationForm fetchNotifications={fetchNotifications} />
