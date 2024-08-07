@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import axios from 'axios';
 import { Button, Card, CardContent, CardActions, IconButton, Snackbar, Alert, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Delete, Markunread, MarkEmailRead } from '@mui/icons-material'; // Import icons
 
-const NotificationList = () => {
+const NotificationList = memo(function NotificationList() {
   const [notifications, setNotifications] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -121,6 +121,6 @@ const NotificationList = () => {
       </Snackbar>
     </div>
   );
-};
+})
 
 export default NotificationList;
