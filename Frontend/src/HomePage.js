@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button, Snackbar, Alert, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import { CheckCircle } from '@mui/icons-material'; // Import icon
+import { CheckCircle } from '@mui/icons-material';
 
 // Styled Snackbar for positioning
 const StyledSnackbar = styled(Snackbar)(({ theme }) => ({
@@ -37,6 +37,20 @@ const HomePage = memo(function HomePage() {
     fetchNotifications();
   }, []);
 
+  const fetchNextNotification = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/notifications');
+      setNotifications(res.data);
+      const nextUnreadNotification = res.data.find((notification) => !notification.read);
+      if (nextUnreadNotification) {
+        setCurrentNotification(nextUnreadNotification);
+        setOpen(true);
+      }
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    }
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -45,7 +59,8 @@ const HomePage = memo(function HomePage() {
     if (currentNotification) {
       try {
         await axios.patch(`http://localhost:5000/notifications/${currentNotification._id}/read`);
-        setCurrentNotification(null); // Clear current notification after marking as read
+        // Fetch the next unread notification
+        fetchNextNotification();
       } catch (error) {
         console.error('Error marking notification as read:', error);
       }
@@ -96,6 +111,6 @@ const HomePage = memo(function HomePage() {
       </StyledSnackbar>
     </div>
   );
-})
+});
 
 export default HomePage;

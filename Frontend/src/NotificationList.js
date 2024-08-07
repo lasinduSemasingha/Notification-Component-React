@@ -4,7 +4,7 @@ import { Button, Card, CardContent, CardActions, IconButton, Snackbar, Alert, Ty
 import { useNavigate } from 'react-router-dom';
 import { Delete, Markunread, MarkEmailRead } from '@mui/icons-material'; // Import icons
 
-const NotificationList = memo(function NotificationList() {
+const NotificationList = () => {
   const [notifications, setNotifications] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -43,19 +43,14 @@ const NotificationList = memo(function NotificationList() {
 
   const handleMarkAsRead = async (id, readStatus) => {
     try {
-        if(readStatus === true) {
-          await axios.patch(`http://localhost:5000/notifications/${id}/unread`, { read: !readStatus });
-        setNotifications(notifications.map(notification => 
+      const response = await axios.patch(`http://localhost:5000/notifications/${id}/${readStatus ? 'unread' : 'read'}`, { read: !readStatus });
+      if (response.status === 200) {
+        setNotifications(notifications.map(notification =>
           notification._id === id ? { ...notification, read: !readStatus } : notification
         ));
-      } else {
-        await axios.patch(`http://localhost:5000/notifications/${id}/read`, { read: !readStatus });
-        setNotifications(notifications.map(notification => 
-        notification._id === id ? { ...notification, read: !readStatus } : notification
-      ));
       }
     } catch (error) {
-      console.error('Error marking notification as read:', error);
+      console.error('Error marking notification as read/unread:', error);
     }
   };
 
@@ -83,8 +78,8 @@ const NotificationList = memo(function NotificationList() {
               width: '100%',
               maxWidth: '800px',
               marginBottom: '10px',
-              backgroundColor: notification.read ? 'white' : '#f5f5f5', // Highlight unread notifications
-              border: notification.read ? 'none' : '1px solid #ddd', // Border for unread notifications
+              backgroundColor: notification.read ? 'white' : '#f5f5f5',
+              border: notification.read ? 'none' : '1px solid #ddd',
               cursor: 'pointer',
               transition: 'background-color 0.3s',
               position: 'relative'
@@ -101,7 +96,7 @@ const NotificationList = memo(function NotificationList() {
                 color="primary" 
                 onClick={(e) => { e.stopPropagation(); handleMarkAsRead(notification._id, notification.read); }}
               >
-                {notification.read ? <MarkEmailRead /> : <Markunread />} {/* Toggle icon */}
+                {notification.read ? <MarkEmailRead /> : <Markunread />}
               </IconButton>
               <IconButton 
                 edge="end" 
@@ -121,6 +116,6 @@ const NotificationList = memo(function NotificationList() {
       </Snackbar>
     </div>
   );
-})
+};
 
 export default NotificationList;

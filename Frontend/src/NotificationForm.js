@@ -1,8 +1,9 @@
-import React, { useState, memo } from 'react';
-import axios from 'axios';
+import React, { useContext, useState, memo } from 'react';
 import { Button, TextField, Container, Typography, Snackbar, Alert } from '@mui/material';
+import { NotificationContext } from './NotificationContext';
 
-const NotificationForm = memo(function NotificationForm({fetchNotifications}) {
+const NotificationForm = () => {
+  const { addNotification } = useContext(NotificationContext);
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [open, setOpen] = useState(false);
@@ -11,10 +12,9 @@ const NotificationForm = memo(function NotificationForm({fetchNotifications}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/notifications', { title, message });
+      await addNotification({ title, message });
       setTitle('');
       setMessage('');
-      fetchNotifications();
       setAlertMessage('Notification sent successfully');
       setOpen(true);
     } catch (error) {
@@ -63,6 +63,6 @@ const NotificationForm = memo(function NotificationForm({fetchNotifications}) {
       </Snackbar>
     </Container>
   );
-})
+};
 
-export default NotificationForm;
+export default memo(NotificationForm);
